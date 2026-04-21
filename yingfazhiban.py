@@ -15,7 +15,6 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 from datetime import datetime, timedelta
 import random
 
@@ -90,7 +89,7 @@ class DataSimulator:
                 "last_heartbeat": datetime.now() - timedelta(minutes=random.randint(1, 120)) if online else datetime.now() - timedelta(hours=random.randint(5, 48)),
                 "firmware_version": f"v{random.randint(1,3)}.{random.randint(0,9)}.{random.randint(0,15)}"
             })
-        return pd.DataFrame(statuses)
+        return pd.DataFrame(data=statuses)
 
     def _generate_health_history(self, days=30):
         records = []
@@ -118,7 +117,7 @@ class DataSimulator:
                     "steps": steps,
                     "sleep_hours": round(sleep_hours, 1)
                 })
-        return pd.DataFrame(records)
+        return pd.DataFrame(data=records)
 
     def _generate_alert_history(self, days=14):
         alerts = []
@@ -142,7 +141,7 @@ class DataSimulator:
                 "response_time_min": response_time,
                 "severity": "高危" if alert_type in ["跌倒检测", "心率异常"] else "中危" if alert_type != "设备离线" else "低危"
             })
-        return pd.DataFrame(alerts)
+        return pd.DataFrame(data=alerts)
 
     def _generate_activity_data(self, days=30):
         activities = []
@@ -158,7 +157,7 @@ class DataSimulator:
                         "participants": participants,
                         "satisfaction": round(random.uniform(4.0, 5.0), 1)
                     })
-        return pd.DataFrame(activities)
+        return pd.DataFrame(data=activities)
 
     def _generate_emotion_data(self, days=30):
         records = []
@@ -177,7 +176,7 @@ class DataSimulator:
                     "negative": round(negative, 3),
                     "loneliness_index": round(1 - positive + np.random.uniform(0, 0.2), 2)
                 })
-        return pd.DataFrame(records)
+        return pd.DataFrame(data=records)
 
     def _generate_nutrition_data(self):
         dates = pd.date_range(end=datetime.now(), periods=30, freq='D')
@@ -186,7 +185,7 @@ class DataSimulator:
             meals.append({"date": date.date(), "meal": "早餐", "calories": random.randint(350,500), "protein": random.randint(15,25), "fat": random.randint(8,15), "carbs": random.randint(40,70)})
             meals.append({"date": date.date(), "meal": "午餐", "calories": random.randint(600,800), "protein": random.randint(25,40), "fat": random.randint(15,30), "carbs": random.randint(70,100)})
             meals.append({"date": date.date(), "meal": "晚餐", "calories": random.randint(500,700), "protein": random.randint(20,35), "fat": random.randint(10,20), "carbs": random.randint(60,90)})
-        return pd.DataFrame(meals)
+        return pd.DataFrame(data=meals)
 
     def _generate_finance_data(self):
         months = pd.date_range(start='2024-01-01', periods=12, freq='M')
@@ -200,7 +199,7 @@ class DataSimulator:
                 "cost_device": random.randint(30, 80)*10000,
                 "cost_operation": random.randint(20, 50)*10000
             })
-        return pd.DataFrame(data)
+        return pd.DataFrame(data=data)
 
     def _generate_staff_data(self):
         staff = []
@@ -217,7 +216,7 @@ class DataSimulator:
                 "avg_response_min": round(random.uniform(3.5,12.0),1),
                 "satisfaction_score": round(random.uniform(4.2,5.0),1)
             })
-        return pd.DataFrame(staff)
+        return pd.DataFrame(data=staff)
 
 # 初始化数据
 sim = DataSimulator()
