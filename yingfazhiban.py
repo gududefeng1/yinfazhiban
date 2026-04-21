@@ -188,7 +188,8 @@ class DataSimulator:
         return pd.DataFrame(data=meals)
 
     def _generate_finance_data(self):
-        months = pd.date_range(start='2024-01-01', periods=12, freq='M')
+        # 已修复：M → ME，兼容新版 Pandas
+        months = pd.date_range(start='2024-01-01', periods=12, freq='ME')
         data = []
         for m in months:
             data.append({
